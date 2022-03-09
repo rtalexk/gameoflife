@@ -122,7 +122,7 @@ export function reviveCell(gen: CELL[][], row: number, col: number) {
  * @param col Col position.
  * @returns Either a live or dead cell value.
  */
-function getCell(gen: CELL[][], row: number, col: number) {
+export function getCell(gen: CELL[][], row: number, col: number) {
   return gen?.[row]?.[col] ?? CELL.DEAD;
 }
 
@@ -144,7 +144,7 @@ function getLiveCell() {
  * Verifies if a given `cell` is dead.
  * @param cell Either a live or dead cell.
  */
-function isCellDead(cell: CELL) {
+export function isCellDead(cell: CELL) {
   return cell === getDeadCell();
 }
 
@@ -152,7 +152,7 @@ function isCellDead(cell: CELL) {
  * Verifies if a given `cell` is alive.
  * @param cell Either a live or dead cell.
  */
-function isCellAlive(cell: CELL) {
+export function isCellAlive(cell: CELL) {
   return !isCellDead(cell);
 }
 
