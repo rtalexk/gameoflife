@@ -1,0 +1,20 @@
+.Grid {
+  display: grid;
+  width: fit-content;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  grid-template-rows: repeat(var(--rows), 1fr);
+}
+
+.Cell {
+  width: 20px;
+  height: 20px;
+  background-color: rgb(105, 105, 105);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: 1px solid rgb(125, 125, 125);
+}
+
+.Cell--live {
+  background-color: forestgreen;
+}
