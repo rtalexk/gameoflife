@@ -1,0 +1,8 @@
+.ClearBtn {
+  padding: 6px 16px;
+  background-color: lightslategrey;
+  border-radius: 4px;
+  outline: 1px solid rgb(198, 220, 243);
+  border: unset;
+  display: inline-block;
+}
