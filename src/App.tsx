@@ -1,40 +1,59 @@
-import React from 'react';
-import { buildEmptyGen, getNextGen, printGeneration, reviveCell } from './lib/gol';
+
+
+import React, { useCallback, useEffect, useState } from 'react';
+import Grid from './components/Grid';
+import Toolbar from './components/Toolbar';
+import { buildEmptyGen, getCell, getNextGen, isCellAlive, killCell, printGeneration, reviveCell } from './lib/gol';
+import { Position } from './types';
+
+const DEFAULT_ROW_SIZE = 50;
+const DEFAULT_COL_SIZE = 50;
 
 function App() {
-  /** Block. Testing purposes, check browser console */
-  const gen0 = buildEmptyGen(50, 50);
+  const [gridSize, setGridSize] = useState({ rows: DEFAULT_ROW_SIZE, cols: DEFAULT_COL_SIZE });
 
-  reviveCell(gen0, 0, 1);
-  reviveCell(gen0, 1, 2);
-  reviveCell(gen0, 2, 0);
-  reviveCell(gen0, 2, 1);
-  reviveCell(gen0, 2, 2);
+  const [gen, setGen] = useState(buildEmptyGen(gridSize.rows, gridSize.cols));
 
-  const gen1 = getNextGen(gen0);
-  const gen2 = getNextGen(gen1);
+  const onCellClickHandler = useCallback((pos: Position) => {
+    setGen(gen => {
+      if (isCellAlive(getCell(gen, pos.x, pos.y))) {
+        return killCell(gen, pos.x, pos.y);
+      }
 
-  printGeneration(gen0);
-  printGeneration(gen1);
-  printGeneration(gen2);
-  /** Endblock */
+      return reviveCell(gen, pos.x, pos.y);
+    });
+  }, []);
 
-  /**
-   * @TODO Create header with the following components:
-   *  - Grid size
-   *  - Next generation
-   *  - Start/Stop
-   *  - Speed
-   */
+  const onGridSizeChangeHandler = useCallback((size: { rows: number; cols: number }) => {
+    setGridSize(size);
+  }, []);
 
-  /**
-   * @TODO Create Grid component to represent current generation
-   */
+  const onNextGenHandler = useCallback(() => {
+    setGen(gen => {
+      const newGen = getNextGen(gen);
+      return newGen;
+    });
+  }, []);
+
+  const onClearHandler = useCallback(() => {
+    setGen(gen => buildEmptyGen(gen.length, gen[0].length));
+  }, []);
+
+  useEffect(() => {
+    setGen(buildEmptyGen(gridSize.rows, gridSize.cols));
+  }, [gridSize]);
 
   return (
-    <div className="">
-      Some content
-    </div>
+    <main className="Main">
+      <Toolbar
+        rowSize={gridSize.rows}
+        colSize={gridSize.cols}
+        onGridSizeChange={onGridSizeChangeHandler}
+        onNextGen={onNextGenHandler}
+        onClear={onClearHandler}
+      />
+      <Grid gen={gen} onClickCell={onCellClickHandler} />
+    </main>
   );
 }
 
