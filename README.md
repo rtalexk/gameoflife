@@ -2,6 +2,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+> Note: In order to run this project locally, you need to have installed a recent version of Node.js.
+
 ## Available Scripts
 
 In the project directory, you can run:
