@@ -1,0 +1,13 @@
+.Toolbar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 64px;
+  border-bottom: 1px solid var(--opaque);
+  box-sizing: border-box;
+  background-color: var(--bg);
+  padding: 16px 8px;
+  column-gap: 16px;
+  position: sticky;
+  top: 0;
+}
