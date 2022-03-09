@@ -63,6 +63,27 @@ export function buildEmptyGen(rowSize: number, colSize: number) {
 }
 
 /**
+ * Creates a copy of a generation by value.
+ * @param gen Current generation.
+ */
+export function cloneGen(gen: CELL[][]) {
+  const newGen: CELL[][] = [];
+  const rowSize = gen.length;
+  const colSize = gen[0].length;
+
+  for (let row = 0; row < rowSize; ++row) {
+    const emptyRow: CELL[] = [];
+    newGen.push(emptyRow);
+
+    for (let col = 0; col < colSize; ++col) {
+      emptyRow.push(getCell(gen, row, col));
+    }
+  }
+
+  return newGen;
+}
+
+/**
  * Verifies if a dead cell should revive.
  * - Any dead cell with three live neighbours becomes a live cell.
  * @param cell Either a dead or live cell.
@@ -101,7 +122,9 @@ function setGenState(gen: CELL[][], row: number, col: number, state: CELL) {
  * @param col Column position
  */
 export function killCell(gen: CELL[][], row: number, col: number) {
-  setGenState(gen, row, col, getDeadCell());
+  const newGen = cloneGen(gen);
+  setGenState(newGen, row, col, getDeadCell());
+  return newGen;
 }
 
 /**
@@ -111,7 +134,9 @@ export function killCell(gen: CELL[][], row: number, col: number) {
  * @param col Column position
  */
 export function reviveCell(gen: CELL[][], row: number, col: number) {
-  setGenState(gen, row, col, getLiveCell());
+  const newGen = cloneGen(gen);
+  setGenState(newGen, row, col, getLiveCell());
+  return newGen;
 }
 
 /**
