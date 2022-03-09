@@ -1,0 +1,31 @@
+.GridSize {
+  display: flex;
+  column-gap: 16px;
+}
+
+.Label {
+  color: var(--font-primary);
+}
+
+.Input {
+  width: 64px;
+  padding: 8px 4px;
+}
+
+.FormGroup {
+  display: flex;
+  column-gap: 8px;
+  align-items: center;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
