@@ -17,7 +17,7 @@ export function getNextGen(gen: number[][]) {
   const rowSize = gen.length;
   const colSize = gen[0].length;
 
-  const nextGen = buildEmptyGen(rowSize, colSize);
+  let nextGen = buildEmptyGen(rowSize, colSize);
 
   for (let row = 0; row < rowSize; ++row) {
     for (let col = 0; col < colSize; ++col) {
@@ -25,17 +25,17 @@ export function getNextGen(gen: number[][]) {
       const liveNeighboursCount = getLiveNeighboursCount(gen, row, col);
 
       if (shouldDeadCellRevive(currentCell, liveNeighboursCount)) {
-        reviveCell(nextGen, row, col);
+        nextGen = reviveCell(nextGen, row, col);
         continue;
       }
 
       if (shouldLiveCellSurvive(currentCell, liveNeighboursCount)) {
-        reviveCell(nextGen, row, col);
+        nextGen = reviveCell(nextGen, row, col);
         continue;
       }
 
       // All other cells die or stay dead in the next generation
-      killCell(nextGen, row, col);
+      nextGen = killCell(nextGen, row, col);
     }
   }
 
